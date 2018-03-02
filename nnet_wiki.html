@@ -10,6 +10,10 @@
 	<li><a href="#Resources">Resources</a></li>
 	<li><a href="#Movement_Plan">Movement Plan</a> </li>
 	<li><a href="#kerastutorial">Keras Tutorial</a></li>
+	<ol>
+		<li><a href="#kerasLayers">Keras layers</a></li>
+		<li><a href="#kerasactivations">Keras activation functions</a></li>
+	</ol>
 	<li><a href="#TensorFlowBasics">TensorFlow Basics</a></li>
 	<ol>
 		<li><a href="#Basics_definitions">Basic Definitions</a></li>
@@ -30,6 +34,9 @@
 <h1 id="Resources">Resources</h1>
 <ul>
 	<li><a href="http://adventuresinmachinelearning.com/python-tensorflow-tutorial/">Python TensorFlow Tutorial - Build a Neural Network</a></li>
+
+	<li><a href="https://www.datacamp.com/community/blog/keras-cheat-sheet">Keras cheat-sheet</a></li>
+
 	<li><a href=""></a></li>
 </ul>
 	<h3 id="book_id">Books</h3>
@@ -76,7 +83,138 @@
 
 <hr>
 <h1 id="kerastutorial">Keras Tutorial</h1>
-<h3 id=""></h3>
+<h2 id="kerasBasics">Keras Basics</h2>
+<h3>Model:</h3>
+A model is a collection of neurons that will define the structure of a neural network. There are two different types of models:
+<ol>
+	<li>Sequential model:<br>
+		Sequential models are just stacks of layers. These layers can together define a neural network.
+	</li>
+	<li>Functional API Model:<br>
+		This API allows us to specify complex networks i.e., networks that can have multiple outputs, networks with shared layers, etc. These kinds of models are needed when we need to use advanced neural networks like convolutional neural networks or recurrent neural networks.
+	</li>
+</ol>
+<h4>Model building</h4>
+The model building process with keras is a three-step process:
+
+<ol>
+	<li>
+		The first step is specifying the structure of the model(sequential or functional).<br>
+		Then we enrich that model by adding layers to the model. We will start with the input layer, to which we will feed our input data feature vectors. keras provides a bunch of layers which can be added to the model (hidden layers, fully connected, CNN, LSTM, RNN, and so on). We can stack these layers together in a complex manner and add the final output layer, to arrive at our overall model architecture.
+	</li>
+	<li>
+		Second step is the compilation of the model architecture.<br>
+		In the compilation step, we configure the learning process. The learning process, in addition to the structure of the model, needs to specify the following additional three important parameters:
+		<ul>
+			<li>Optimizer: This could be a string identifier to the already implemented optimizers, a function, or an object to the Optimizer class that we can implement.</li>	
+			<li>Loss function: A loss function, also known as an objective function, will specify the objective of minimizing loss/error</li>
+			<li>Performance metrics: A metric is a quantifiable measure of the learning process. While compiling a model, we can specify a performance metric we want to track (for example, accuracy for a classification model), which will educate us about the effectiveness of the learning process. This helps in evaluating model performance.</li>
+		</ul>
+	</li>
+	<li>The third step is executing the compiled method to start the training process.</li>
+</ol>
+
+<h3>Step 1: creating the structure and architecture of the network</h3>
+<h3 id="kerasLayers">Keras layers</h3>
+	For the documentation of the rest of the layer types go to: <a href="https://keras.io/layers/about-keras-layers/">About Keras layers</a>
+	<ul>
+		<li>Dense<br>
+			The dense layer means a fully connected layer.<br>
+			Dense(units, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None, **kwargs)<br><br>
+			units: The number of neurons. ** for the first layer we have to define the size of the input features<br><br>
+			activation: the activation function for this layer.<br><br>
+			Example:<br>
+			model.add(Dense(15, input_dim=30, activation='relu'))<br>
+			# The model has 15 neurons/units. Those 15 units (neurons) is fully connected to the 30 input features<br>
+			model.add(Dense(1, activation='sigmoid'))<br>
+			# The output layer for our example is a dense layer with the sigmoid activation and just one unit. ** after the first layer, you don't need to specify the size of the input anymore.<br><br>
+		</li>
+		<li>Dropout<br></li>
+		<li>Conv1D<br></li>
+		<li>Conv2D<br></li>
+		<li>Conv3D<br></li>
+		<li>SeparableConv2D<br></li>
+		<li>Conv2DTranspose<br></li>
+		<li>Cropping1D<br></li>
+		<li>Cropping2D<br></li>
+		<li>Cropping3D<br></li>
+		<li>UpSampling1D<br></li>
+		<li>UpSampling2D<br></li>
+		<li>UpSampling3D<br></li>
+		<li>ZeroPadding1D<br></li>
+		<li>ZeroPadding2D<br></li>
+		<li>ZeroPadding3D<br></li>
+		<li>MaxPooling1D<br></li>
+		<li>MaxPooling2D<br></li>
+		<li>MaxPooling3D<br></li>
+		<li>AveragePooling1D<br></li>
+		<li>AveragePooling2D<br></li>
+		<li>AveragePooling3D<br></li>
+		<li>GlobalMaxPooling1D<br></li>
+		<li>GlobalMaxPooling2D<br></li>
+		<li>GlobalAveragePooling1D<br></li>
+		<li>GlobalAveragePooling2D<br></li>
+		<li>LocallyConnected1D<br></li>
+		<li>LocallyConnected2D<br></li>
+		<li>RNN<br></li>
+		<li>SimpleRNN<br></li>
+		<li>GRU<br></li>
+		<li>LSTM<br></li>
+		<li>ConvLSTM2D<br></li>
+		<li>SimpleRNNCells<br></li>
+		<li>CuDNNGRU<br></li>
+		<li>CuDNNLSTM<br></li>
+		<li>Writing your own Keras layers: <a href="https://keras.io/layers/writing-your-own-keras-layers/">Writing your own Keras layers</a></li>
+	</ul>
+
+
+<h3 id="kerasactivations">Keras activation functions</h3>
+Available activation functions are:
+<ul>
+	<li>softmax</li>
+	<li>elu</li>
+	<li>selu</li>
+	<li>softplus</li>
+	<li>softsign</li>
+	<li>relu</li>
+	<li>tanh</li>
+	<li>sigmoid</li>
+	<li>hard_sign</li>
+	<li>linear</li>
+</ul>
+
+<h3>Step2: Defining the compilation of the model</h3>
+Once we have defined the model we will then compile the model by supplying the necessary optimizer, loss function, and the metric on which we want to evaluate the model performance.<br><br>
+
+Example:<br>
+model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])<br>
+Here we used a loss function of binary_crossentropy, which is a standard loss function for binary classification problems. For the optimizer, we used rmsprop, which is an upgrade from the normal gradient descent algorithm.
+
+<h3>Step3: executing the compiled method to start the training process</h3>
+The next step is to fit the model using the fit function.<br><br>
+
+Example<br>
+model.fit(X_train, y_train, epochs=20, batch_size=50)<br>
+Here, the epochs parameter indicates one complete forward and backward pass of all the training examples. The batch_size parameter indicates the total number of samples which are propagated through the NN model at a time for one backward and forward pass for training the model and updating the gradient.<br>
+Thus if you have 100 observations and your batch size is 10, each epoch will consist of 10 iterations where 10 observations (data points) will be passed through the network at a time and the weights on the hidden layer units will be updated. However we can see that the overall loss and training accuracy remains the same. Which means the model isn’t really learning anything from the looks of it!<br>
+
+<h4>Step3-2: testing(evaluation) the network</h4>
+The API for keras again follows the convention for scikit-learn models, hence we can use the predict function to predict for the data points in the test set. In fact we use predict_classes to get the actual class label predicted for each test data instance.<br><br>
+
+Example:<br>
+predictions = model.predict_classes(X_test)<br><br>
+
+Lets evaluate the model performance by looking at the test data accuracy and other performance metrics like precision, recall, and F1 score. Do not despair if you do not understand some of these terms, as we will be covering them in detail in Chapter 5(<b>Practical Machine Learning with Python</b>). For now, you should know that scores closer to 1 indicate better results i.e., an accuracy of 1 would indicate 100% model accuracy, which is perfection. Luckily, scikit-learn provides us with necessary performance metric measuring APIs.<br><br>
+Example:<br>
+from sklearn import metrics<br>
+print('Accuracy:', metrics.accuracy_score(y_true=y_test, y_pred=predictions))<br>
+print(metrics.classification_report(y_true=y_test, y_pred=predictions))<br>
+
+
+
+
+
+
 
 <h3 id=""></h3>
 <hr>
